@@ -4,5 +4,5 @@ from django.db import models
 class FlowerData(models.Model):
     name = models.CharField(max_length=100, default="")
     #picture = models
-    flower_id = models.AutoField(primary_key=True)
+    f_id = models.AutoField(primary_key=True)
 

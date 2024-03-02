@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'neighbourhood',
     'user',
+    'flower',
 ]
 
 MIDDLEWARE = [

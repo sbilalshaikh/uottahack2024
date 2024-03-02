@@ -1,6 +1,6 @@
 from django.db import models
-from ..flower.models import FlowerData
-from ..user.models import UserData
+from flower.models import FlowerData
+from user.models import UserData
 
 class NeighbourhoodData(models.Model):
     greenScore = models.IntegerField(default=0)
