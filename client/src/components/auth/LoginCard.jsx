@@ -13,12 +13,75 @@ import {
 } from "@chakra-ui/react";
 
 const LoginCard = () => {
-  const [identifier, setIdentifier] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  
+  const loginSubmit = async () => {
+        setLoading(true);
+        if (
+        !firstName ||
+        !password
+        ) {
+        toast({
+            title: "Please Fill all the Fields",
+            status: "warning",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+        });
+        setLoading(false);
+        return;
+        }
+
+        try {
+        const config = {
+            headers: {
+            "Content-Type": "application/json",
+            },
+        };
     
+        const login = await fetch("http://127.0.0.1:8000/user/login/", {
+            headers: new Headers({ "content-type": "application/json" }),
+            method: "POST",
+            body: JSON.stringify({
+            "email": email,
+            "password": password,
+        }),
+      });
+
+      const loginData = await login.json();
+
+
+      if (!login.ok) {
+        throw new Error(`${signUpData.error}`);
+      }
+
+      const access_token = loginData['access_token']
+      console.log(access_token)
+
+      toast({
+        title: "Login Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    } catch (error) {
+      toast({
+        title: "Error Occured!!",
+        status: "error",
+        description: error.message,
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
+    }
+  };
 
 
   return (
@@ -27,8 +90,8 @@ const LoginCard = () => {
         <FormLabel color={"#F05941"}>Email or Username</FormLabel>
         <Input
           placeholder="Enter Your Email or Username"
-          value={identifier}
-          onChange={(e) => setIdentifier(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           color={"white"}
         />
       </FormControl>
@@ -56,6 +119,7 @@ const LoginCard = () => {
         bg="#BE3144"
         width="100%"
         isLoading={loading}
+        onClick={loginSubmit}
         style={{ marginTop: 15 }}
         _hover={{bg: "#F05941"}}
       >

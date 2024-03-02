@@ -15,12 +15,94 @@ const SignUpCard = () => {
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [username, setUsername] = useState("");
+    const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(false);
     const toast = useToast();
+
+    const loginSubmit = async () => {
+        setLoading(true);
+        if (
+        !firstName ||
+        !lastName ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !address
+        ) {
+        toast({
+            title: "Please Fill all the Fields",
+            status: "warning",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+        });
+        setLoading(false);
+        return;
+        }
+
+        try {
+        const config = {
+            headers: {
+            "Content-Type": "application/json",
+            },
+        };
+        if (password != confirmPassword) {
+            toast({
+            title: "Passwords do not match",
+            status: "warning",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+            });
+            setLoading(false)
+            return;
+        }
+        const signUp = await fetch("http://127.0.0.1:8000/user/signup/", {
+            headers: new Headers({ "content-type": "application/json" }),
+            method: "POST",
+            body: JSON.stringify({
+            "f_name": firstName,
+            "l_name": lastName,
+            "address": address,
+            "email": email,
+            "password": password,
+        }),
+      });
+
+      const signUpData = await signUp.json();
+
+
+      if (!signUp.ok) {
+        throw new Error(`${signUpData.error}`);
+      }
+
+      const access_token = signUpData['access_token']
+      console.log(access_token)
+
+      toast({
+        title: "Login Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    } catch (error) {
+      toast({
+        title: "Error Occured!!",
+        status: "error",
+        description: error.message,
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
 
     return (
     <VStack spacing="5px" color="black">
@@ -42,12 +124,12 @@ const SignUpCard = () => {
             color={"white"}
         />
         </FormControl>
-        <FormControl id="username" isRequired>
-        <FormLabel color={"#F05941"}>Username</FormLabel>
+        <FormControl id="address" isRequired>
+        <FormLabel color={"#F05941"}>Address</FormLabel>
         <Input
-            placeholder="Enter Your Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter Your Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             color={"white"}
         />
         </FormControl>
@@ -86,7 +168,7 @@ const SignUpCard = () => {
         <InputGroup>
             <Input
             type={show ? "text" : "password"}
-            placeholder="Enter Your Password Again"
+            placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             color={"white"}
@@ -106,6 +188,7 @@ const SignUpCard = () => {
         bg="#BE3144"
         width="100%"
         isLoading={loading}
+        onClick={loginSubmit}
         style={{ marginTop: 15 }}
         _hover={{ bg: "#F05941" }}
         >
