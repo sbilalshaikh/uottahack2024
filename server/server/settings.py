@@ -81,15 +81,15 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#hasith
-#asdf123AN
+#postgres12
+#xunfod-xovqaz-4gAzji
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-         'NAME':'postgres',
-         'USER':'postgres',
-         'PASSWORD':'123123asdf',
-         'HOST':'database-3.cnawya4oa1dm.us-east-2.rds.amazonaws.com',
+         'NAME':'uottahack',
+         'USER':'postgres12',
+         'PASSWORD':'xunfod-xovqaz-4gAzji',
+         'HOST':'database-1.cdcewuq4ud5b.us-east-2.rds.amazonaws.com',
          'PORT':'5432'
      }
 }
