@@ -17,7 +17,7 @@ def rename_files(folder_path, flower_types):
         
 if __name__ == "__main__":
     # Replace this value with the actual path to your "Test" folder
-    folder_path = "train"
+    folder_path = "valid"
     with open('cat_to_name.json', 'r') as flower_cat:
         data = flower_cat.read()
     flower_types = json.loads(data)
