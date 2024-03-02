@@ -13,10 +13,10 @@ import {
   MenuButton,
   IconButton,
   Image,
+  useMediaQuery
 } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { PhoneIcon, QuestionIcon } from "@chakra-ui/icons";
+import { HamburgerIcon } from '@chakra-ui/icons';
+
 import { Link as ChakraLink, Tooltip, useToast } from "@chakra-ui/react";
 
 const Navbar = () => {
@@ -24,11 +24,14 @@ const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState();
   const [profile, setProfile] = useState();
+  const [isSmallerThan768] = useMediaQuery('(max-width: 768px)');
+
 
   return (
     <Box bg="#22092C" position={{ sm: "sticky" }} top={0} zIndex={2}>
-      <Flex justify={{ base: "center", sm: "space-between" }}>
-        <Box padding={"10px"} display={"flex"}>
+      <Flex justify={{ base: "center", sm: "space-between" }} alignItems={{sm:"end"}}>
+        
+        <Box padding={2} display={"flex"}> 
           <Box
             pb={2}
             display={"flex"}
@@ -64,35 +67,40 @@ const Navbar = () => {
                 colorScheme="green"
                 justifySelf={"start"}
                 marginLeft={{ base: 5, sm: 0 }}
-                onClick={handleSearch}
               >
                 Search!
               </Button>
-                          </Box>
+            </Box>
           </Box>
         </Box>
-        <Box
-          marginTop="25px"
-          flexBasis={"10%"}
-          marginBottom={"10px"}
-          marginLeft={{ base: "5px", sm: "0" }}
-        >
-        <Menu>
-            {({ isOpen }) => (
-            <>
+
+        <Box padding={{base: 2, sm: 4}}
+        justifySelf={"end"}>
+        {isSmallerThan768 ? (
+            <Menu>
+              {({ isOpen }) => (
+                <>
                 <MenuButton
-                as={Avatar}
-                boxSize={{ base: "2.5em", sm: "3em" }}
-                src={profile}
-                />
-                <MenuList>
-                <MenuItem>My Community</MenuItem>
-                <MenuItem>Maps</MenuItem>
-                </MenuList>
-            </>
-            )}
-        </Menu>
+                    as={IconButton}
+                    boxSize={{ base: '2.5em', sm: '3em' }}
+                    icon={<HamburgerIcon />}
+                    aria-label="Open menu"
+                    />
+                  <MenuList>
+                    <MenuItem>Maps</MenuItem>
+                    <MenuItem>Community</MenuItem>
+                  </MenuList>
+                </>
+              )}
+            </Menu>
+        ) : (
+            // Render your box content for larger screens
+            <Box>
+
+            </Box>
+        )}
         </Box>
+            
       </Flex>
     </Box>
   );
