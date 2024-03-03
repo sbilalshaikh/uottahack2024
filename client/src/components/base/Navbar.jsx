@@ -48,12 +48,14 @@ const Navbar = () => {
               borderColor="teal.500"
               _focus={{ borderColor: "teal.700" }}
               _hover={{ borderColor: "teal.600" }}
-              color="white"
+              color="black"
               onChange={(e) => setSearchTerm(e.target.value)}
               value={searchTerm}
               marginTop={{ sm: "30px" }}
               marginX={2}
+              backgroundColor="white"
             />
+
 
             <Box display="flex" flexBasis={{ sm: "50%" }}>
               <Button
