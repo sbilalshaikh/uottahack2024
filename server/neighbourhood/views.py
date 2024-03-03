@@ -46,7 +46,7 @@ def get_community_info(request):
     events_res = []
     for event in events:
         event_ser = EventDataSerializer(event.event_to_neightbourhood_fk)
-        events_res.append(event_ser)
+        events_res.append(event_ser.data)
     
     
     
