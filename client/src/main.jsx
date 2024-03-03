@@ -21,8 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Navbar />
     <Routes>
         <Route path="/" element={ <AuthPage/> } />
-        <Route path="/community" element={ <Community/> } />
-        <Route path="/map" element={ <GreaterMap/>} />
+        <Route path="/community/:name" element={ <Community/> } />
     </Routes>
     </BrowserRouter>
   </ChakraProvider>,
