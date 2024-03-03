@@ -1,4 +1,20 @@
 import React, { useRef, useEffect } from 'react';
+import { GoogleMap, LoadScript } from '@react-google-maps/api'
+
+const bounds = { 
+    
+    width : '65%',
+    height : '300px'
+
+}
+
+const center = {
+
+    lat: 45.369727, 
+    lng:-75.716169
+
+}
+
 
 const KanataNorthGeoJSON = {
     "type": "Feature",
@@ -48,35 +64,36 @@ const SandyHillGeoJSON = {
     }
 };
 
-const kn_layer = new GeoJsonLayer({
-    id: 'kanata-north',
-    data: KanataNorthGeoJSON,
-    stroked: true,
-    filled: true,
-    lineWidthMinPixels: 2,
-    getLineColor: [255, 0, 0, 255],
-    getFillColor: [255, 255, 255, 64]
-});
-
-const sh_layer = new GeoJsonLayer({
-    id: 'sandy-hill',
-    data: SandyHillGeoJSON,
-    stroked: true,
-    filled: true,
-    lineWidthMinPixels: 2,
-    getLineColor: [8, 143, 143, 255],
-    getFillColor: [143, 143, 143, 64]
-});
-
-
-
-// center: [-75.7969010421875, 45.3834722221875] 
-
-// idea is: load a map, google maps api, and add the geojson layers ontop
 
 const GreaterMap = () => {
 
+    const mapRef = useRef(null);
 
+    const  onLoad = (map) => {
+
+        mapRef.current = map;
+
+        map.data.addGeoJson(KanataNorthGeoJSON);
+        map.data.addGeoJson(SandyHillGeoJSON);
+
+    };
+
+
+    
+    return (
+    <LoadScript
+        async googleMapsApiKey="AIzaSyCygEHJWZdXCELGXxk9k7iarJMVJ2JWVU0" // Replace with your API key
+    >
+        <GoogleMap
+        mapContainerStyle={bounds}
+        center={center}
+        zoom={11.0}
+        onLoad={onLoad}
+        >
+        </GoogleMap>
+    </LoadScript>
+    );
 };
+
 
 export default GreaterMap;
