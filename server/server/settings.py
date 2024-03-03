@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'neighbourhood',
     'user',
     'flower',
+    'events',
 ]
 
 MIDDLEWARE = [

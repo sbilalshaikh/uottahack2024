@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box, Text } from '@chakra-ui/react';
 import Gallery from '../components/community/Gallery';
-import Chart from '../components/community/Chart';
 import Events from '../components/community/Events';
 import { useParams } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
+import BarChart from '../components/community/BarChart';
 const Community = () => {
     const [community, setCommunity] = useState()
     const [flowers, setFlowers] = useState()
     const [members, setMembers] = useState()
+    const [events, setEvents] = useState()
     const toast = useToast();
     
     //Fetch request to access the db and all information about a community
@@ -35,6 +36,7 @@ const Community = () => {
                 setCommunity(commmunityData.neighbourhood)
                 setFlowers(commmunityData.flowers)
                 setMembers(commmunityData.members)
+                setEvents(community.events)
 
                 if (!commmunityInfo.ok) {
                 throw new Error(`${commmunityData.error}`);
@@ -58,11 +60,19 @@ const Community = () => {
 
     return (
         <Box>
-            <Flex>
-                <Box flexBasis={"50%"}>
+            <Flex flexDir={{"base": "column", "md": "row"}}>
+
+                <Box padding={3} flexBasis={"50%"} textAlign={"center"} minH={"50%"}>
                     
                     {community && <>
-                    <Chart score={community}/></>}
+                    <BarChart 
+                    labels={[community.neighbourhood_name, "Ottawa", "World"]}
+                    data={[community.ndvi, 0.6942, 0.6332]}
+                    datasetLabel={"NDVI Scale"}
+                    backgroundColor={"#2C4251"}
+                    borderColor={"#74E7B9"}
+                    />
+                    </>}
                 </Box>
 
                 <Box flexBasis={"50%"}>
@@ -71,7 +81,7 @@ const Community = () => {
                 </Box>
             </Flex>
             <Flex>
-                <Events />
+                <Events events={events}/>
             </Flex>
         </Box>
     )

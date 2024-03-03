@@ -1,6 +1,7 @@
 from django.db import models
 from flower.models import FlowerData
 from user.models import UserData
+from events.models import EventData
 
 class NeighbourhoodData(models.Model):
     ndvi = models.FloatField(default=0)
@@ -33,4 +34,9 @@ class FlowerInNeighbourhood(models.Model):
         return f"{self.flower_to_neighbourhood_fk}, {self.neighbourhood_to_flower_fk}"
 
 
-
+class EventsInNeighbourhood(models.Model):
+    event_to_neightbourhood_fk = models.ForeignKey(EventData, to_field='e_id', on_delete=models.CASCADE)
+    neighbourhood_to_event_fk = models.ForeignKey(NeighbourhoodData, to_field='n_id', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.event_to_neightbourhood_fk}, {self.neighbourhood_to_event_fk}"

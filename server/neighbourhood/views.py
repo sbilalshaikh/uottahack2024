@@ -56,7 +56,7 @@ def get_community_info(request):
         'neighbourhood': neighbourhood_serializer.data,
         'flowers': flowers_res,
         'members': members_res,
-        'event_res': events_res,
+        'events': events_res,
     }
     
     return Response(response_data, status=status.HTTP_200_OK)
