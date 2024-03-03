@@ -32,8 +32,7 @@ const Community = () => {
                 
 
                 const commmunityData = await commmunityInfo.json();
-                console.log(commmunityData)
-                setCommunity(commmunityData.community)
+                setCommunity(commmunityData.neighbourhood)
                 setFlowers(commmunityData.flowers)
                 setMembers(commmunityData.members)
 
@@ -60,15 +59,15 @@ const Community = () => {
     return (
         <Box>
             <Flex>
-                <Box>
+                <Box flexBasis={"50%"}>
                     
                     {community && <>
-                    {console.log(community)}
                     <Chart score={community}/></>}
                 </Box>
 
-                <Box>
-                    <Gallery images={flowers}/>
+                <Box flexBasis={"50%"}>
+                    {flowers &&
+                    <Gallery flowers={flowers}/>}
                 </Box>
             </Flex>
             <Flex>
