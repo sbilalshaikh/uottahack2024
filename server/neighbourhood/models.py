@@ -14,6 +14,11 @@ class NeighbourhoodData(models.Model):
 class CommunityMember(models.Model):
     member_to_neighbourhood_fk = models.ForeignKey(UserData, max_length=1000, to_field='u_id', on_delete=models.CASCADE)
     neighbourhood_to_member_fk = models.ForeignKey(NeighbourhoodData, to_field='n_id', on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.member_to_neighbourhood_fk}, {self.neighbourhood_to_member_fk}"
+
+    def __str__(self):
+        return f"{self.member_to_neighbourhood_fk}, {self.neighbourhood_to_member_fk}"
 
     def __str__(self):
         return f"{self.member_to_neighbourhood_fk}, {self.neighbourhood_to_member_fk}"
