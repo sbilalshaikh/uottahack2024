@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect  } from 'react';
+import { useHistory } from 'react-router-dom';
 import { GoogleMap, LoadScript } from '@react-google-maps/api'
 
 const bounds = { 
@@ -32,7 +33,7 @@ const KanataNorthGeoJSON = {
         ]]
     },
     "properties": {
-        "name": "Kanata_North"
+        "name": "Kanata North"
     }
 };
 
@@ -60,16 +61,18 @@ const SandyHillGeoJSON = {
         ]]
     },
     "properties": {
-        "name": "Sandy_Hill"
+        "name": "Sandy Hill"
     }
 };
 
 
 const GreaterMap = () => {
 
+    const history = useHistory();
+
     const mapRef = useRef(null);
 
-    const  onLoad = (map) => {
+    const onLoad = (map) => {
 
         mapRef.current = map;
 
@@ -78,11 +81,16 @@ const GreaterMap = () => {
 
     };
 
+    map.data.addListener('click' , (event) => {
 
-    
+        name = event.feature.getProperty('name');
+        history.push(`/community/${name}`)
+
+    })
+
     return (
     <LoadScript
-        async googleMapsApiKey="AIzaSyCygEHJWZdXCELGXxk9k7iarJMVJ2JWVU0" // Replace with your API key
+        async googleMapsApiKey="AIzaSyCygEHJWZdXCELGXxk9k7iarJMVJ2JWVU0" 
     >
         <GoogleMap
         mapContainerStyle={bounds}
@@ -91,8 +99,13 @@ const GreaterMap = () => {
         onLoad={onLoad}
         >
         </GoogleMap>
+
     </LoadScript>
+
+
     );
+
+
 };
 
 
