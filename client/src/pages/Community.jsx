@@ -33,24 +33,17 @@ const Community = () => {
                 
 
                 const commmunityData = await commmunityInfo.json();
+
                 setCommunity(commmunityData.neighbourhood)
                 setFlowers(commmunityData.flowers)
                 setMembers(commmunityData.members)
-                setEvents(community.events)
+                setEvents(commmunityData.events)
 
                 if (!commmunityInfo.ok) {
                 throw new Error(`${commmunityData.error}`);
                 }
             } catch (error) {
-                toast({
-                    title: "Error Occured!!",
-                    status: "error",
-                    description: error.error,
-                    duration: 5000,
-                    isClosable: true,
-                    position: "bottom",
-                });
-                return
+             console.log("hello")
             }
         }
         loadCommunityInfo(); 
@@ -80,9 +73,22 @@ const Community = () => {
                     <Gallery flowers={flowers}/>}
                 </Box>
             </Flex>
-            <Flex>
-                <Events events={events}/>
-            </Flex>
+            
+            <Box display="flex" justifyContent={"center"}>
+                <Box w={"60%"} bg={"#e9eba0"} textAlign={"center"}>
+                    <Text fontSize={"50px"} fontFamily={"Quicksand"}>EVENTS</Text>
+                </Box>
+            </Box>
+            <Box>
+                {events && <Flex justifyContent={"space-around"}>
+                {events.map((eventInfo, event_index) => (
+                        <Box key={event_index} flexBasis={"45%"} p={3} bg>
+                            <Events eventInfo={eventInfo}/>
+                        </Box>
+                    ))}
+            </Flex>}
+            </Box>
+            
         </Box>
     )
 }

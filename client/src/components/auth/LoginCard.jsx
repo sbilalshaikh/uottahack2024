@@ -11,6 +11,7 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
+import { useNavigate } from 'react-router-dom';
 
 const LoginCard = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,8 @@ const LoginCard = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  
+  const navigate = useNavigate();
+
   const loginSubmit = async () => {
         setLoading(true);
         if (
@@ -69,6 +71,8 @@ const LoginCard = () => {
         isClosable: true,
         position: "bottom",
       });
+      navigate(`/map/`);
+
     } catch (error) {
       toast({
         title: "Error Occured!!",

@@ -24,7 +24,7 @@ const Gallery = (props) => {
 
   return (
     <Flex direction="column" align="center" m={4} borderRadius="lg">
-    <Box background={"#BC6C25"} mb={4} borderRadius={"lg"} w="80%" textAlign={"center"}>
+    <Box background={"#e9eba0"} mb={4} borderRadius={"lg"} w="80%" textAlign={"center"}>
         <Text fontFamily={"Quicksand"} fontWeight={"bold"} fontSize={"30px"}>Flowers</Text>
     </Box>
       <Flex align="center" justify="space-between" wrap="wrap" p={4}>

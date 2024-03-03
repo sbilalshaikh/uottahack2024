@@ -12,6 +12,7 @@ class FlowerData(models.Model):
     #Location
     location = models.CharField(default="")
     
+    
     def __str__(self):
         return f"{self.name} found at {self.location}"
     

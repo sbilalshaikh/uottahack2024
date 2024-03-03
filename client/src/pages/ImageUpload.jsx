@@ -34,17 +34,36 @@ const ImageUpload = () => {
     setFile(ev.target.files[0]);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     // You can implement your upload logic here
     if (file && community) {
-      // For example, you can use the FormData API to upload the file along with the selected community
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('community', community);
+      try {
+          const formData = new FormData();
+        formData.append("file", file);
+        formData.append("community", community);
 
-      // Make a POST request to your server with the formData
-      // For demonstration purposes, we'll just log the formData
-      console.log(formData);
+        const uploadInfo = await fetch("http://127.0.0.1:8000/flowers/add-flower/", {
+          method: "POST",
+          body: formData,
+        });
+        
+          console.log("hiyyyy")
+          const uploadData = await uploadInfo.json();
+
+          if (!uploadInfo.ok) {
+          throw new Error(`${uploadData.error}`);
+          }
+          
+        toast({
+        title: "Upload Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      } catch (error) {
+        console.log(error)
+      }
     } else {
       toast({
         title: "Error",
