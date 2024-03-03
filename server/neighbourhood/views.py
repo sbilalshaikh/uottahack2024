@@ -34,22 +34,17 @@ def get_community_info(request):
     
 
 def interpolate_color(value):
-    # Define the RGB values for blue, white, and green
-    blue = (0, 0, 255)
+    # Define the RGB values for white and green
     white = (255, 255, 255)
     green = (0, 255, 0)
 
-    # Interpolate between blue, white, and green based on the value
-    if value <= 0:
-        # Interpolate between blue and white
-        r = int(blue[0] + (white[0] - blue[0]) * (1 + value))
-        g = int(blue[1] + (white[1] - blue[1]) * (1 + value))
-        b = int(blue[2] + (white[2] - blue[2]) * (1 + value))
-    else:
-        # Interpolate between white and green
-        r = int(white[0] + (green[0] - white[0]) * value)
-        g = int(white[1] + (green[1] - white[1]) * value)
-        b = int(white[2] + (green[2] - white[2]) * value)
+    # Adjust the value to fit in the range [0, 0.1]
+    adjusted_value = min(max(value, 0), 0.1) / 0.1  # Scale value to fit in [0, 1]
+
+    # Interpolate between white and green based on the adjusted value
+    r = int(white[0] + (green[0] - white[0]) * adjusted_value)
+    g = int(white[1] + (green[1] - white[1]) * adjusted_value)
+    b = int(white[2] + (green[2] - white[2]) * adjusted_value)
 
     # Convert RGB values to hex code
     hex_code = "#{:02x}{:02x}{:02x}".format(r, g, b)
@@ -75,12 +70,14 @@ def process_geoJSON(request):
 
             ndvi = sentinel2.normalizedDifference(['B8', 'B4'])
 
+            print(ndvi.getInfo())
+
             ndvi_masked = ndvi.clip(neighbourhood_fc)
 
             mean_ndvi = ndvi_masked.reduceRegion(
                 reducer=ee.Reducer.mean(),
                 geometry=neighbourhood_fc.geometry(),
-                scale=10
+                scale= 10
             )
 
             mean_ndvi_value = mean_ndvi.getInfo()['nd']
@@ -88,7 +85,6 @@ def process_geoJSON(request):
             color = interpolate_color(mean_ndvi_value)
 
             neighbourhood_name = geojson_content["properties"]["name"]
-            print(color)
             print(f"Mean NDVI for {neighbourhood_name}: {mean_ndvi_value}")
             neighbourhood = NeighbourhoodData.objects.create(
                 ndvi = mean_ndvi_value,
@@ -98,10 +94,20 @@ def process_geoJSON(request):
             )
             neighbourhood.save()
             print(neighbourhood.color)
-            print(neighbourhood.geoJSON)
 
     return JsonResponse({'message': 'Mean NDVI calculation complete for all GeoJSON files.'})
 
 @api_view(['GET'])
 def hello_world(request):
     return Response({'message': 'Hello, world'})
+
+
+@api_view(['GET'])
+def get_all(request):
+    try:
+        neighborhoods = NeighbourhoodData.objects.all()
+        # Serialize the queryset into JSON
+        serialized_neighborhoods = [{'name': neighborhood.neighbourhood_name, 'color': neighborhood.color} for neighborhood in neighborhoods]
+        return Response(serialized_neighborhoods, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
