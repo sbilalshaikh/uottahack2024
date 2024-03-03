@@ -59,14 +59,11 @@ def interpolate_color(value):
     # Define the RGB values for white and green
     white = (255, 255, 255)
     green = (0, 255, 0)
-
-    # Adjust the value to fit in the range [0, 0.1]
-    adjusted_value = min(max(value, 0), 0.1) / 0.1  # Scale value to fit in [0, 1]
-
+    
     # Interpolate between white and green based on the adjusted value
-    r = int(white[0] + (green[0] - white[0]) * adjusted_value)
-    g = int(white[1] + (green[1] - white[1]) * adjusted_value)
-    b = int(white[2] + (green[2] - white[2]) * adjusted_value)
+    r = int(white[0] + (green[0] - white[0]) * value)
+    g = int(white[1] + (green[1] - white[1]) * value)
+    b = int(white[2] + (green[2] - white[2]) * value)
 
     # Convert RGB values to hex code
     hex_code = "#{:02x}{:02x}{:02x}".format(r, g, b)
@@ -92,22 +89,21 @@ def process_geoJSON(request):
             sentinel2 = ee.ImageCollection('COPERNICUS/S2_SR') \
                 .filterBounds(neighbourhood_fc) \
                 .filterDate('2023-01-01', '2023-12-31') \
-                .median()
+                .median() \
+                .clip(neighbourhood_fc)
 
             ndvi = sentinel2.normalizedDifference(['B8', 'B4'])
 
-            ndvi_masked = ndvi.clip(neighbourhood_fc)
+            #ndvi_masked = ndvi.clip(neighbourhood_fc)
 
-            mean_ndvi = ndvi_masked.reduceRegion(
+            mean_ndvi = ndvi.reduceRegion(
                 reducer=ee.Reducer.mean(),
-                geometry=neighbourhood_fc.geometry(),
-                scale= 10
+                geometry=neighbourhood_fc,
+                scale = 10,
             )
-
-            mean_ndvi_value = mean_ndvi.getInfo()['nd']
-
+            mean_ndvi_value = mean_ndvi.getInfo()['nd'] * 10
             color = interpolate_color(mean_ndvi_value)
-
+            print(mean_ndvi_value)
             neighbourhood_name = geojson_content["properties"]["name"]
             print(f"Mean NDVI for {neighbourhood_name}: {mean_ndvi_value}")
             neighbourhood = NeighbourhoodData.objects.create(
@@ -117,7 +113,6 @@ def process_geoJSON(request):
                 geoJSON = geojson_content
             )
             neighbourhood.save()
-            print(neighbourhood.color)
 
     return JsonResponse({'message': 'Mean NDVI calculation complete for all GeoJSON files.'})
 

@@ -80,10 +80,24 @@ const GreaterMap = () => {
         margin: '0 auto',
         padding: '20px',
     }
+    
+    const textSectionStyle = {
+        width: '35%',
+        padding: '20px',
+        backgroundColor: '#f2f2f2',
+    };
 
     return (
         <div>
-            <div ref={mapRef} style={bounds}></div>
+            <div style={bounds}>
+                <div ref={mapRef} style={mapStyle}></div>
+                <div style={textSectionStyle}>
+                    <h2>Understanding NDVI</h2>
+                    <p>NDVI (Normalized Difference Vegetation Index) is a measure of vegetation health and density. It is calculated from the difference between near-infrared (which vegetation strongly reflects) and red light (which vegetation absorbs) that is captured by satellites or other remote sensing devices. NDVI values range from -1 to 1, with higher values indicating healthier and denser vegetation.</p>
+                    <h3>How to Use the Map</h3>
+                    <p>Hover over a neighborhood to see its name and NDVI value. Click on a neighborhood to explore more details.</p>
+                </div>
+            </div>
         </div>
     );
 };
