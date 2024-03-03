@@ -64,10 +64,15 @@ def process_geoJSON(request):
     geojson_folder = '../geoJSON'
     if (geojson_folder):
         for file in os.listdir(geojson_folder):
+            if ()
             fp = os.path.join(geojson_folder, file)
 
             with open(fp, 'r') as f:
                 geojson_content = json.load(f)
+
+            if NeighbourhoodData.objects.filter(neighbourhood_name=neighbourhood_name).exists():
+                print(f"Neighbourhood {neighbourhood_name} already exists. Skipping...")
+                continue  # Skip processing this GeoJSON file
 
             neighbourhood_f = ee.Feature(geojson_content)
             neighbourhood_fc = ee.FeatureCollection([neighbourhood_f])
@@ -114,9 +119,13 @@ def hello_world(request):
 @api_view(['GET'])
 def get_all(request):
     try:
+        results = []
         neighborhoods = NeighbourhoodData.objects.all()
+        for neighborhood in neighborhoods:
+            neighborhood_serialized = NeighbourhoodDataSerializer(neighborhood)
+            results.append(neighborhood_serialized.data)
+        res = {'neighbourhoods': results}
         # Serialize the queryset into JSON
-        serialized_neighborhoods = [{'name': neighborhood.neighbourhood_name, 'color': neighborhood.color} for neighborhood in neighborhoods]
-        return Response(serialized_neighborhoods, status=status.HTTP_200_OK)
+        return Response(res, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
