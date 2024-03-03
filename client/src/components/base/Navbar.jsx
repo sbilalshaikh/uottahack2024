@@ -28,7 +28,7 @@ const Navbar = () => {
 
 
   return (
-    <Box bg="#D2E8C1" position={{ sm: "sticky" }} top={0} zIndex={2}>
+    <Box bg="#606C38" position={{ sm: "sticky" }} top={0} zIndex={2}>
       <Flex justify={{ base: "center", sm: "space-between" }} alignItems={{sm:"end"}}>
         
         <Box padding={2} display={"flex"}> 

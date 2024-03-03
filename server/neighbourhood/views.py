@@ -3,8 +3,7 @@ import ee
 import json
 import os
 from django.http import JsonResponse
-from .models import NeighbourhoodData
-
+from .models import NeighbourhoodData, FlowerData, UserData
 from .models import NeighbourhoodData, FlowerInNeighbourhood, CommunityMember
 # Create your views here.
 from django.shortcuts import render
@@ -12,6 +11,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import NeighbourhoodDataSerializer, CommunityMemberSerializer, FlowerInNeighbourhoodSerializer
+from flower.serializers import FlowerDataSerializer
+from user.serializer import User_Data_Serializer
 
 # Create your views here.
 
@@ -29,14 +30,26 @@ def get_community_info(request):
     neighbourhood_serializer = NeighbourhoodDataSerializer(neighbourhood)
     flowers = FlowerInNeighbourhood.objects.filter(neighbourhood_to_flower_fk=neighbourhood.n_id)
     members = CommunityMember.objects.filter(neighbourhood_to_member_fk=neighbourhood.n_id)
-
-    flower_serializer = FlowerInNeighbourhoodSerializer(flowers, many=True)
+    
+    flowers_res = []
+    for flower in flowers:
+        flower_ser = FlowerDataSerializer(flower.flower_to_neighbourhood_fk)
+        flowers_res.append(flower_ser.data)
+    
+    members_res = []
+    for member in members:
+        member_ser = User_Data_Serializer(member.member_to_neighbourhood_fk)
+        members_res.append(member_ser.data)
+    
+    
+    
+        
     member_serializer = CommunityMemberSerializer(members, many=True)
 
     response_data = {
         'neighbourhood': neighbourhood_serializer.data,
-        'flowers': flower_serializer.data,
-        'members': member_serializer.data
+        'flowers': flowers_res,
+        'members': members_res
     }
     
     return Response(response_data, status=status.HTTP_200_OK)
