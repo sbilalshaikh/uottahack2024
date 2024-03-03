@@ -1,13 +1,12 @@
 from django.db import models
 from flower.models import FlowerData
 from user.models import UserData
-from django.db.models import JSONField
 
 class NeighbourhoodData(models.Model):
-    ndvi = models.IntegerField(default=0)
+    ndvi = models.FloatField(default=0)
     neighbourhood_name = models.CharField(default="")
     color = models.CharField(default="#FFFFFF")
-    geoJSON = JSONField()
+    geoJSON = models.JSONField("geoJSON")
     n_id = models.AutoField(primary_key=True)
 
 

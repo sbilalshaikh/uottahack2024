@@ -15,7 +15,6 @@ from django.http import JsonResponse
 ee.Authenticate()
 ee.Initialize(project='ee-methira19')
 
-@api_view(['GET'])
 
 def interpolate_color(value):
     # Define the RGB values for blue, white, and green
@@ -39,6 +38,7 @@ def interpolate_color(value):
     hex_code = "#{:02x}{:02x}{:02x}".format(r, g, b)
     return hex_code
 
+@api_view(['GET'])
 def process_geoJSON(request):
     geojson_folder = '../geoJSON'
     if (geojson_folder):
@@ -74,12 +74,13 @@ def process_geoJSON(request):
             print(color)
             print(f"Mean NDVI for {neighbourhood_name}: {mean_ndvi_value}")
             neighbourhood = NeighbourhoodData.objects.create(
-                nvdi = mean_ndvi_value,
-                name = neighbourhood_name,
+                ndvi = mean_ndvi_value,
+                neighbourhood_name = neighbourhood_name,
                 color = color,
                 geoJSON = geojson_content
             )
             neighbourhood.save()
+            print(neighbourhood.color)
             print(neighbourhood.geoJSON)
 
     return JsonResponse({'message': 'Mean NDVI calculation complete for all GeoJSON files.'})
