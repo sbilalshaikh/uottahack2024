@@ -1,12 +1,16 @@
-import React, { useRef, useEffect  } from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleMap, LoadScript } from '@react-google-maps/api'
 
 const bounds = { 
     
     width : '50%',
-    height : '400px'
+    height : '400px',
+    margin : '2.5% auto 0',
+    border: '3px solid #000000'
 
+
+ 
 }
 
 const center = {
@@ -66,6 +70,31 @@ const SandyHillGeoJSON = {
 };
 
 
+const CarlingwoodGeoJSON = {
+    "type": "Feature",
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [-75.73250000, 45.37333333],
+            [-75.73083333, 45.36527778],
+            [-75.74000000, 45.36138889],
+            [-75.74861111, 45.37583333],
+            [-75.73972222, 45.38361111],
+            [-75.72722222, 45.38916667],
+            [-75.71944444, 45.37666667],
+            [-75.72111111, 45.37611111],
+            [-75.73250000, 45.37333333]
+        ]]
+    },
+    "properties": {
+        "name": "Carlingwood"
+    }
+};
+
+
+
+
+
 const GreaterMap = () => {
 
     const navigate = useNavigate();
@@ -78,32 +107,55 @@ const GreaterMap = () => {
 
         map.data.addGeoJson(KanataNorthGeoJSON);
         map.data.addGeoJson(SandyHillGeoJSON);
+        map.data.addGeoJson(CarlingwoodGeoJSON);
 
         map.data.addListener('click' , (event) => {
 
-        name = event.feature.getProperty('name');
-        console.log(name);
-        navigate(`/community/${name}`);
+            name = event.feature.getProperty('name');
+            console.log(name);
+            navigate(`/community/${name}`);
 
-    })
+        })
 
     };
 
 
+    const mapStyle = {
+
+        width: '65%',
+        height: '300px',
+        margin: '0 auto', 
+        padding: '20px',
+
+    }
+
+
 
     return (
-    <LoadScript
-        async googleMapsApiKey="AIzaSyCygEHJWZdXCELGXxk9k7iarJMVJ2JWVU0" 
-    >
-        <GoogleMap
-        mapContainerStyle={bounds}
-        center={center}
-        zoom={10.9}
-        onLoad={onLoad}
-        >
-        </GoogleMap>
 
-    </LoadScript>
+    <div>
+
+        <LoadScript
+            async googleMapsApiKey="AIzaSyCygEHJWZdXCELGXxk9k7iarJMVJ2JWVU0" 
+        >
+
+            <GoogleMap 
+            mapContainerStyle={bounds}
+            center={center}
+            zoom={10.9}
+            onLoad={onLoad}
+            style={mapStyle}
+
+            >
+            </GoogleMap>
+
+
+        </LoadScript>
+
+
+
+    </div>
+
 
 
     );

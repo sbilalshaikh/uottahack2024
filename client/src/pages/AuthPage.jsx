@@ -20,7 +20,7 @@ const AuthPage = () => {
     <Container maxW="xl" centerContent>
       <Box
       marginTop={"10px"}
-        bg={"#22092C"}
+        bg={"#FFFFFF"}
         w="100%"
         p={4}
         borderRadius="lg"
