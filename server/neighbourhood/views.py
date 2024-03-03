@@ -70,15 +70,16 @@ def process_geoJSON(request):
 
             color = interpolate_color(mean_ndvi_value)
 
-            neighbourhood_name = os.path.splitext(os.path.basename(fp))[0].replace("_", " ")
+            neighbourhood_name = geojson_content["properties"]["name"]
             print(color)
             print(f"Mean NDVI for {neighbourhood_name}: {mean_ndvi_value}")
-
             neighbourhood = NeighbourhoodData.objects.create(
                 nvdi = mean_ndvi_value,
                 name = neighbourhood_name,
-                color = color
+                color = color,
+                geoJSON = geojson_content
             )
             neighbourhood.save()
+            print(neighbourhood.geoJSON)
 
     return JsonResponse({'message': 'Mean NDVI calculation complete for all GeoJSON files.'})
