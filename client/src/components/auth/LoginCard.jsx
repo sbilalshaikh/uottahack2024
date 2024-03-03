@@ -87,7 +87,7 @@ const LoginCard = () => {
   return (
     <VStack spacing="5px" color="back">
       <FormControl id="email" isRequired>
-        <FormLabel color={"#F05941"}>Email or Username</FormLabel>
+        <FormLabel color={"#000000"}>Email or Username</FormLabel>
         <Input
           placeholder="Enter Your Email or Username"
           value={email}
@@ -96,7 +96,7 @@ const LoginCard = () => {
         />
       </FormControl>
       <FormControl id="password" isRequired>
-        <FormLabel color={"#F05941"}>Password</FormLabel>
+        <FormLabel color={"#000000"}>Password</FormLabel>
         <InputGroup>
           <Input
             type={show ? "text" : "password"}
@@ -116,12 +116,12 @@ const LoginCard = () => {
         </InputGroup>
       </FormControl>
       <Button
-        bg="#BE3144"
+        bg="#FFFFFF"
         width="100%"
         isLoading={loading}
         onClick={loginSubmit}
         style={{ marginTop: 15 }}
-        _hover={{bg: "#F05941"}}
+        _hover={{bg: "#f6fff0"}}
       >
         Login
       </Button>

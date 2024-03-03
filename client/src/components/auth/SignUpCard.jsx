@@ -107,7 +107,7 @@ const SignUpCard = () => {
     return (
     <VStack spacing="5px" color="black">
         <FormControl id="firstName" isRequired>
-        <FormLabel color={"#F05941"}>First Name</FormLabel>
+        <FormLabel color={"#000000"}>First Name</FormLabel>
         <Input
             placeholder="Enter Your First Name"
             value={firstName}
@@ -116,7 +116,7 @@ const SignUpCard = () => {
         />
         </FormControl>
         <FormControl id="lastName" isRequired>
-        <FormLabel color={"#F05941"}>Last Name</FormLabel>
+        <FormLabel color={"#000000"}>Last Name</FormLabel>
         <Input
             placeholder="Enter Your Last Name"
             value={lastName}
@@ -125,7 +125,7 @@ const SignUpCard = () => {
         />
         </FormControl>
         <FormControl id="address" isRequired>
-        <FormLabel color={"#F05941"}>Address</FormLabel>
+        <FormLabel color={"#000000"}>Address</FormLabel>
         <Input
             placeholder="Enter Your Address"
             value={address}
@@ -134,7 +134,7 @@ const SignUpCard = () => {
         />
         </FormControl>
         <FormControl id="email" isRequired>
-        <FormLabel color={"#F05941"}>Email</FormLabel>
+        <FormLabel color={"#000000"}>Email</FormLabel>
         <Input
             placeholder="Enter Your Email"
             value={email}
@@ -143,7 +143,7 @@ const SignUpCard = () => {
         />
         </FormControl>
         <FormControl id="password" isRequired>
-        <FormLabel color={"#F05941"}>Password</FormLabel>
+        <FormLabel color={"#000000"}>Password</FormLabel>
         <InputGroup>
             <Input
             type={show ? "text" : "password"}
@@ -164,7 +164,7 @@ const SignUpCard = () => {
         </InputGroup>
         </FormControl>
         <FormControl id="confirm-password" isRequired>
-        <FormLabel color={"#F05941"}>Confirm Password</FormLabel>
+        <FormLabel color={"#000000"}>Confirm Password</FormLabel>
         <InputGroup>
             <Input
             type={show ? "text" : "password"}
@@ -185,12 +185,12 @@ const SignUpCard = () => {
         </InputGroup>
         </FormControl>
         <Button
-        bg="#BE3144"
+        bg="#ffffff"
         width="100%"
         isLoading={loading}
         onClick={loginSubmit}
         style={{ marginTop: 15 }}
-        _hover={{ bg: "#F05941" }}
+        _hover={{ bg: "#f6fff0" }}
         >
         Signup
         </Button>
