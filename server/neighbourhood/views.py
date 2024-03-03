@@ -5,18 +5,33 @@ import os
 from django.http import JsonResponse
 from .models import NeighbourhoodData
 
+from .models import NeighbourhoodData, FlowerInNeighbourhood, CommunityMember
 # Create your views here.
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-# Create your views here.
+from rest_framework import status
 
+# Create your views here.
 
 ee.Authenticate()
 ee.Initialize(project='ee-methira19')
 
 # Create your views here.
+@api_view(['GET'])
+def get_community_info(request):
+    name = request.GET.get('name', '')
+    try:
+        neighbourhood = NeighbourhoodData.objects.get(name=name)
+    except Exception:
+        return Response({'error': 'Could not find city'}, status=status.HTTP_400_BAD_REQUEST)
 
+    flowers = FlowerInNeighbourhood.filter(neighbourhood_to_flower_fk=neighbourhood.n_id)
+    members = CommunityMember.filter(neighbourhood_to_member_fk=neighbourhood._id)
+    response_data = {'neighbourhood': neighbourhood, 'flowers': flowers, 'members': members}
+    
+    return Response(response_data, status=status.HTTP_200_OK)
+    
 
 def interpolate_color(value):
     # Define the RGB values for blue, white, and green
