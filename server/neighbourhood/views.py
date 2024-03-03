@@ -3,16 +3,17 @@ import ee
 import json
 import os
 from django.http import JsonResponse
-from .models import NeighbourhoodData, FlowerData, UserData
+from .models import EventsInNeighbourhood, NeighbourhoodData, FlowerData, UserData, EventData
 from .models import NeighbourhoodData, FlowerInNeighbourhood, CommunityMember
 # Create your views here.
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import NeighbourhoodDataSerializer, CommunityMemberSerializer, FlowerInNeighbourhoodSerializer
+from .serializers import NeighbourhoodDataSerializer
 from flower.serializers import FlowerDataSerializer
 from user.serializer import User_Data_Serializer
+from events.serialization import EventDataSerializer
 
 # Create your views here.
 
@@ -30,6 +31,7 @@ def get_community_info(request):
     neighbourhood_serializer = NeighbourhoodDataSerializer(neighbourhood)
     flowers = FlowerInNeighbourhood.objects.filter(neighbourhood_to_flower_fk=neighbourhood.n_id)
     members = CommunityMember.objects.filter(neighbourhood_to_member_fk=neighbourhood.n_id)
+    events = EventsInNeighbourhood.objects.filter(neighbourhood_to_event_fk=neighbourhood.n_id)
     
     flowers_res = []
     for flower in flowers:
@@ -41,15 +43,20 @@ def get_community_info(request):
         member_ser = User_Data_Serializer(member.member_to_neighbourhood_fk)
         members_res.append(member_ser.data)
     
+    events_res = []
+    for event in events:
+        event_ser = EventDataSerializer(event.event_to_neightbourhood_fk)
+        events_res.append(event_ser)
     
     
-        
-    member_serializer = CommunityMemberSerializer(members, many=True)
-
+    
+    
+    
     response_data = {
         'neighbourhood': neighbourhood_serializer.data,
         'flowers': flowers_res,
-        'members': members_res
+        'members': members_res,
+        'event_res': events_res,
     }
     
     return Response(response_data, status=status.HTTP_200_OK)
