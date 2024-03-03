@@ -68,7 +68,7 @@ def process_geoJSON(request):
 
             with open(fp, 'r') as f:
                 geojson_content = json.load(f)
-
+            neighbourhood_name = geojson_content["properties"]["name"]
             if NeighbourhoodData.objects.filter(neighbourhood_name=neighbourhood_name).exists():
                 print(f"Neighbourhood {neighbourhood_name} already exists. Skipping...")
                 continue  # Skip processing this GeoJSON file
