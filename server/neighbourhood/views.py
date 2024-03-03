@@ -1,19 +1,21 @@
 from django.shortcuts import render
+import ee
+import json
+import os
+from django.http import JsonResponse
 from .models import NeighbourhoodData
 
 # Create your views here.
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-import ee
-import json
-import os
-from django.http import JsonResponse
 # Create your views here.
 
 
 ee.Authenticate()
 ee.Initialize(project='ee-methira19')
+
+# Create your views here.
 
 
 def interpolate_color(value):
@@ -84,3 +86,7 @@ def process_geoJSON(request):
             print(neighbourhood.geoJSON)
 
     return JsonResponse({'message': 'Mean NDVI calculation complete for all GeoJSON files.'})
+
+@api_view(['GET'])
+def hello_world(request):
+    return Response({'message': 'Hello, world'})
