@@ -1,5 +1,5 @@
 import React, { useRef, useEffect  } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GoogleMap, LoadScript } from '@react-google-maps/api'
 
 const bounds = { 
@@ -68,7 +68,7 @@ const SandyHillGeoJSON = {
 
 const GreaterMap = () => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const mapRef = useRef(null);
 
@@ -79,14 +79,17 @@ const GreaterMap = () => {
         map.data.addGeoJson(KanataNorthGeoJSON);
         map.data.addGeoJson(SandyHillGeoJSON);
 
-    };
-
-    map.data.addListener('click' , (event) => {
+        map.data.addListener('click' , (event) => {
 
         name = event.feature.getProperty('name');
-        history.push(`/community/${name}`)
+        console.log(name);
+        navigate(`/community/${name}`);
 
     })
+
+    };
+
+
 
     return (
     <LoadScript
