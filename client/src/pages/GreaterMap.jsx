@@ -4,15 +4,15 @@ import { GoogleMap, LoadScript } from '@react-google-maps/api'
 
 const bounds = { 
     
-    width : '65%',
-    height : '300px'
+    width : '50%',
+    height : '400px'
 
 }
 
 const center = {
 
-    lat: 45.369727, 
-    lng:-75.716169
+    lat: 45.340186, 
+    lng:-75.726175
 
 }
 
@@ -98,7 +98,7 @@ const GreaterMap = () => {
         <GoogleMap
         mapContainerStyle={bounds}
         center={center}
-        zoom={11.0}
+        zoom={10.9}
         onLoad={onLoad}
         >
         </GoogleMap>

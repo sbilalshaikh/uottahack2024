@@ -11,6 +11,8 @@ import { BrowserRouter } from "react-router-dom";
 
 import Root from "./routes/root";
 import Community from './pages/Community.jsx';
+import GreaterMap from './pages/GreaterMap.jsx';
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -19,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Navbar />
     <Routes>
         <Route path="/" element={ <AuthPage/> } />
-        <Route path="/community" element={ <Community/> } />
+        <Route path="/community/:name" element={ <Community/> } />
     </Routes>
     </BrowserRouter>
   </ChakraProvider>,
