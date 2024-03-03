@@ -64,7 +64,6 @@ def process_geoJSON(request):
     geojson_folder = '../geoJSON'
     if (geojson_folder):
         for file in os.listdir(geojson_folder):
-            if ()
             fp = os.path.join(geojson_folder, file)
 
             with open(fp, 'r') as f:
@@ -83,8 +82,6 @@ def process_geoJSON(request):
                 .median()
 
             ndvi = sentinel2.normalizedDifference(['B8', 'B4'])
-
-            print(ndvi.getInfo())
 
             ndvi_masked = ndvi.clip(neighbourhood_fc)
 
