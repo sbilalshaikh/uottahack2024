@@ -22,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Routes>
         <Route path="/" element={ <AuthPage/> } />
         <Route path="/community/:name" element={ <Community/> } />
+        <Route path="/map" element={<GreaterMap />} />
     </Routes>
     </BrowserRouter>
   </ChakraProvider>,

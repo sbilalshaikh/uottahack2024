@@ -11,24 +11,33 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from .serializers import NeighbourhoodDataSerializer, CommunityMemberSerializer, FlowerInNeighbourhoodSerializer
 
 # Create your views here.
 
 ee.Authenticate()
 ee.Initialize(project='ee-methira19')
 
-# Create your views here.
 @api_view(['GET'])
 def get_community_info(request):
     name = request.GET.get('name', '')
     try:
-        neighbourhood = NeighbourhoodData.objects.get(name=name)
-    except Exception:
+        neighbourhood = NeighbourhoodData.objects.get(neighbourhood_name=name)
+    except NeighbourhoodData.DoesNotExist:
         return Response({'error': 'Could not find city'}, status=status.HTTP_400_BAD_REQUEST)
 
-    flowers = FlowerInNeighbourhood.filter(neighbourhood_to_flower_fk=neighbourhood.n_id)
-    members = CommunityMember.filter(neighbourhood_to_member_fk=neighbourhood._id)
-    response_data = {'neighbourhood': neighbourhood, 'flowers': flowers, 'members': members}
+    neighbourhood_serializer = NeighbourhoodDataSerializer(neighbourhood)
+    flowers = FlowerInNeighbourhood.objects.filter(neighbourhood_to_flower_fk=neighbourhood.n_id)
+    members = CommunityMember.objects.filter(neighbourhood_to_member_fk=neighbourhood.n_id)
+
+    flower_serializer = FlowerInNeighbourhoodSerializer(flowers, many=True)
+    member_serializer = CommunityMemberSerializer(members, many=True)
+
+    response_data = {
+        'neighbourhood': neighbourhood_serializer.data,
+        'flowers': flower_serializer.data,
+        'members': member_serializer.data
+    }
     
     return Response(response_data, status=status.HTTP_200_OK)
     
