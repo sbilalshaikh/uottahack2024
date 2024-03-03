@@ -13,11 +13,15 @@ import {
   MenuButton,
   IconButton,
   Image,
-  useMediaQuery
+  useMediaQuery,
+  Spacer
 } from "@chakra-ui/react";
 import { HamburgerIcon } from '@chakra-ui/icons';
 
 import { Link as ChakraLink, Tooltip, useToast } from "@chakra-ui/react";
+import { Link } from 'react-router-dom';
+
+
 
 const Navbar = () => {
   const toast = useToast();
@@ -28,7 +32,7 @@ const Navbar = () => {
 
 
   return (
-    <Box bg="#606C38" position={{ sm: "sticky" }} top={0} zIndex={2}>
+    <Box bg="#D2E8C1" position={{ sm: "sticky" }} top={0} zIndex={2}>
       <Flex justify={{ base: "center", sm: "space-between" }} alignItems={{sm:"end"}}>
         
         <Box padding={2} display={"flex"}> 
@@ -71,6 +75,11 @@ const Navbar = () => {
                 Search!
               </Button>
             </Box>
+
+
+            
+
+
           </Box>
         </Box>
 
@@ -84,7 +93,7 @@ const Navbar = () => {
                     as={IconButton}
                     boxSize={{ base: '2.5em', sm: '3em' }}
                     icon={<HamburgerIcon />}
-                    aria-label="Open menu"
+                    aria-label="Open menu" 
                     />
                   <MenuList>
                     <MenuItem>Maps</MenuItem>
@@ -95,10 +104,31 @@ const Navbar = () => {
             </Menu>
         ) : (
             // Render your box content for larger screens
-            <Box>
+            <Box display="flex" alignItems="center"
 
+              marginTop={{ base: "5px", sm: "30px" }}
+              flexBasis={{ base: "90%" }}
+              colorScheme="green"
+              justifySelf={"start"}
+              marginLeft={{ base: 5, sm: 0 }}
+              padding={'0.5rem 1rem'}
+              color={'white'}
+              background={'#22a363'}
+              borderRadius={'0.3rem'}
+              fontWeight={'medium'}
+
+           >
+              <Spacer />
+              <Link to={"/map"} >
+                Main Map
+              </Link>
             </Box>
+            
         )}
+
+
+
+        
         </Box>
             
       </Flex>
