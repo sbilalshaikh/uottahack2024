@@ -112,7 +112,7 @@ const SignUpCard = () => {
             placeholder="Enter Your First Name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            color={"white"}
+            color={"black"}
         />
         </FormControl>
         <FormControl id="lastName" isRequired>
@@ -121,7 +121,7 @@ const SignUpCard = () => {
             placeholder="Enter Your Last Name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            color={"white"}
+            color={"black"}
         />
         </FormControl>
         <FormControl id="address" isRequired>
@@ -130,7 +130,7 @@ const SignUpCard = () => {
             placeholder="Enter Your Address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            color={"white"}
+            color={"black"}
         />
         </FormControl>
         <FormControl id="email" isRequired>
@@ -139,7 +139,7 @@ const SignUpCard = () => {
             placeholder="Enter Your Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            color={"white"}
+            color={"black"}
         />
         </FormControl>
         <FormControl id="password" isRequired>
@@ -150,7 +150,7 @@ const SignUpCard = () => {
             placeholder="Enter Your Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            color={"white"}
+            color={"black"}
             />
             <InputRightElement width="4.5rem">
             <Button
@@ -171,7 +171,7 @@ const SignUpCard = () => {
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            color={"white"}
+            color={"black"}
             />
             <InputRightElement width="4.5rem">
             <Button

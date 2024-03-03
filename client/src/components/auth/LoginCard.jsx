@@ -92,7 +92,7 @@ const LoginCard = () => {
           placeholder="Enter Your Email or Username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          color={"white"}
+          color={"black"}
         />
       </FormControl>
       <FormControl id="password" isRequired>
@@ -103,7 +103,7 @@ const LoginCard = () => {
             placeholder="Enter Your Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            color={"white"}
+            color={"black"}
           />
           <InputRightElement width="4.5rem">
             <Button
