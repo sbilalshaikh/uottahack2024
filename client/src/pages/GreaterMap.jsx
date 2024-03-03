@@ -80,26 +80,35 @@ const GreaterMap = () => {
         margin: '0 auto',
         padding: '20px',
     }
-    
-    const textSectionStyle = {
-        width: '35%',
+    const textBoxStyle = {
+        width: '65%',
+        margin: '0 auto',
         padding: '20px',
-        backgroundColor: '#f2f2f2',
-    };
+        textAlign: 'left',
+    }
+    const textStyle = {
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '16px',
+        lineHeight: '1.6',
+        color: '#333',
+    }
 
     return (
         <div>
-            <div style={bounds}>
-                <div ref={mapRef} style={mapStyle}></div>
-                <div style={textSectionStyle}>
-                    <h2>Understanding NDVI</h2>
-                    <p>NDVI (Normalized Difference Vegetation Index) is a measure of vegetation health and density. It is calculated from the difference between near-infrared (which vegetation strongly reflects) and red light (which vegetation absorbs) that is captured by satellites or other remote sensing devices. NDVI values range from -1 to 1, with higher values indicating healthier and denser vegetation.</p>
-                    <h3>How to Use the Map</h3>
-                    <p>Hover over a neighborhood to see its name and NDVI value. Click on a neighborhood to explore more details.</p>
+            <div ref={mapRef} style={bounds}></div>
+            <div className="container" style={{ display: 'flex' }}>
+                <div className="left-column" style={{ flex: 1, paddingRight: '20px' }}>
+                    <h2 style={{ fontSize: '1.5em', marginBottom: 0 }}>Understanding NDVI</h2>
+                    <p style={{ fontSize: '1em' }}>NDVI (Normalized Difference Vegetation Index) is a measure of vegetation health and density. It is calculated from the difference between near-infrared (which vegetation strongly reflects) and red light (which vegetation absorbs) that is captured by satellites or other remote sensing devices. NDVI values range from -1 to 1, with higher values indicating healthier and denser vegetation.</p>
+                </div>
+                <div className="right-column" style={{ flex: 1, paddingLeft: '20px' }}>
+                    <h2 style={{ fontSize: '1.5em', marginBottom: 0 }}>How to Use the Map</h2>
+                    <p style={{ fontSize: '1em' }}>To interact with the map, simply hover over a neighborhood to see its name and NDVI value. Click on a neighborhood to explore more details.</p>
                 </div>
             </div>
         </div>
     );
+    
 };
 
 export default GreaterMap;
