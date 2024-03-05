@@ -11,10 +11,10 @@ After clicking on a neighbourhood we then provide you with your very own communi
 ComuniPlant provides a neighbourhood flower gallery! Users can upload pictures of flowers in their neighbourhood and with Amazon Rekognition, we use Computer Vision to classify the species of flower that you have found!
 
 <h2>Challenges</h2>
-- Amazon Rekognition setup with Python
-- Embedding GeoJSON with our maps 
-- Creating a heatmap
-- Complex querries to our database to present information on our map
+- Amazon Rekognition setup with Python <br>
+- Embedding GeoJSON with our maps <br>
+- Creating a heatmap <br>
+- Complex querries to our database to present information on our map <br>
 
 <h2>Results!</h2>
 Won second in UOttaHack, it was Hasith and Methira's first Hackathon, and Bilal's second hackathon, so we were all really proud of our achievements and look forward for the future. 
