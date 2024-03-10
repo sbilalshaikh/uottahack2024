@@ -25,7 +25,7 @@ const GreaterMap = () => {
 
     useEffect(() => {
         const loader = new Loader({
-            apiKey: 'AIzaSyCygEHJWZdXCELGXxk9k7iarJMVJ2JWVU0',
+            apiKey: 'API_KEY',
             version: 'weekly', 
         });
 
