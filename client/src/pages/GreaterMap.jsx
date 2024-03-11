@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import { Loader } from "@googlemaps/js-api-loader";
+const apiKey = process.env.REACT_APP_API_KEY;
 
 const response = await fetch("http://localhost:8000/neighbourhood/get-all");
 
@@ -25,7 +26,7 @@ const GreaterMap = () => {
 
     useEffect(() => {
         const loader = new Loader({
-            apiKey: 'AIzaSyCygEHJWZdXCELGXxk9k7iarJMVJ2JWVU0',
+            apiKey: apiKey,
             version: 'weekly', 
         });
 

@@ -12,8 +12,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv()
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -91,10 +95,10 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-         'NAME':'uottahack',
-         'USER':'postgres12',
-         'PASSWORD':'xunfod-xovqaz-4gAzji',
-         'HOST':'database-1.cdcewuq4ud5b.us-east-2.rds.amazonaws.com',
+         'NAME':os.getenv('AWS_DB_NAME'),
+         'USER':os.getenv('AWS_DB_MASTER_USER'),
+         'PASSWORD':os.getenv('AWS_DB_PASSWORD'),
+         'HOST':os.getenv('AWS_URI'),
          'PORT':'5432'
      }
 }
