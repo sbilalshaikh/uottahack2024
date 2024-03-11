@@ -54,8 +54,7 @@ def detect_labels_local_file(photo):
     print('Detected labels in ' + photo)  
     print(response['Labels'])  
     for label in response['Labels']:
-        if label['Name'] != 'Flower' or 'Plant':
-            return "Azalea"
+        return label
 
 def main(p):
     photo=p
