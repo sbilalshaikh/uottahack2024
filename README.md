@@ -1,5 +1,7 @@
 <h1>Submission for UOttaHack6!</h1>
 
+## DEVPOST
+Check out our [devpost](https://devpost.com/software/communiplant) for a demo 😉
 
 Welcome to ComuniPlant!!!
 <h2>Our goals</h2>
